@@ -401,6 +401,11 @@
               <FileType>1</FileType>
               <FilePath>..\Hw\Src\rcc.c</FilePath>
             </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hw\Src\led.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

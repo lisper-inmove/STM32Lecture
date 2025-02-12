@@ -53,3 +53,4 @@
 .\objects\main.o: ..\Lib\Inc\stm32f1xx_hal_hcd.h
 .\objects\main.o: ..\Lib\Inc\stm32f1xx_hal_mmc.h
 .\objects\main.o: ..\Hw\Inc\rcc.h
+.\objects\main.o: ..\Hw\Inc\led.h

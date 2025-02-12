@@ -2,6 +2,7 @@
 ".\objects\main.o"
 ".\objects\stm32f1xx_it.o"
 ".\objects\rcc.o"
+".\objects\led.o"
 ".\objects\stm32f1xx_hal.o"
 ".\objects\stm32f1xx_hal_gpio.o"
 ".\objects\stm32f1xx_hal_gpio_ex.o"
