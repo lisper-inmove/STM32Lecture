@@ -406,6 +406,11 @@
               <FileType>1</FileType>
               <FilePath>..\Hw\Src\led.c</FilePath>
             </File>
+            <File>
+              <FileName>sw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hw\Src\sw.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
