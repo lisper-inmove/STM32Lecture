@@ -5,6 +5,7 @@
 #define SW11_IN HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)
 
 void SW_Init(void);
+void SW_Init_IT(uint8_t mode);
 uint8_t SW_Scan(uint8_t mode);
 
 #endif

@@ -21,6 +21,39 @@ void SW_Init(void) {
 	HAL_GPIO_Init(GPIOA, &GPIO_InitType);
 }
 
+void SW_Init_IT(uint8_t mode) {
+	GPIO_InitTypeDef GPIO_InitType;
+	__HAL_RCC_GPIOC_CLK_ENABLE();
+	GPIO_InitType.Pin = GPIO_PIN_13;
+	if(mode == 0) {
+		GPIO_InitType.Mode = GPIO_MODE_IT_RISING;
+	} else {
+		GPIO_InitType.Mode = GPIO_MODE_IT_FALLING;
+	}
+	GPIO_InitType.Pull = GPIO_PULLDOWN;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitType);
+	// EXTI15_10_IRQn 表示中断号
+	// 中断发生时 EXTI15_10_IRQHandler 函数被调用
+	// 我们可以选择在 EXTI15_10_IRQHandler函数中处理逻辑
+	// 也可以在 EXTI15_10_IRQHandler函数中调用 HAL_GPIO_EXTI_IRQHandler
+	//     这个函数会先清除 引脚上的 中断设置，然后调用 HAL_GPIO_EXTI_Callback
+	//     处理逻辑就写在 HAL_GPIO_EXTI_Callback 函数中
+	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 4, 0);
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+	
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	GPIO_InitType.Pin = GPIO_PIN_0;
+	if(mode == 0) {
+		GPIO_InitType.Mode = GPIO_MODE_IT_FALLING;
+	} else {
+		GPIO_InitType.Mode = GPIO_MODE_IT_RISING;
+	}
+	GPIO_InitType.Pull = GPIO_PULLUP;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitType);
+	HAL_NVIC_SetPriority(EXTI0_IRQn, 3, 0);
+	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+}
+
 // 返回值  0: 无按钮触发
 //         8: SW8触发
 //  mode 0: 按下执行, 1: 抬起执行
@@ -81,4 +114,44 @@ uint8_t SW_Scan(uint8_t mode) {
 		}
 	}
 	return 0;
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_PIN) {
+	uint32_t i;
+	switch(GPIO_PIN) {
+		case GPIO_PIN_13:
+				if (SW8_IN == 1) {
+						for (i = 0; i < PRESS_DOWN_LOOP_NUMBER; i++) {
+							if (SW8_IN == 0) {
+								return;
+							}
+					}
+					HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+				} else {
+					for (i = 0; i < PRESS_DOWN_LOOP_NUMBER; i++) {
+							if (SW8_IN == 1) {
+								return;
+							}
+					}
+					HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+				}
+				break;
+		case GPIO_PIN_0:
+				if (SW11_IN == 0) {
+					for (i = 0; i < PRESS_DOWN_LOOP_NUMBER; i++) {
+						if (SW11_IN == 1) {
+							return;
+						}
+					}
+					HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+				} else {
+					for (i = 0; i < PRESS_DOWN_LOOP_NUMBER; i++) {
+						if (SW11_IN == 0) {
+							return;
+						}
+					}
+					HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+				}
+				break;
+	}
 }
