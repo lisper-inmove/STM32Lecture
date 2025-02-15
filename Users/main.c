@@ -10,13 +10,7 @@ int main(void) {
 	LED_Init();
 	SW_Init_IT(1);
 	while (1) {
-		/*
-		switch(SW_Scan(1)) {
-			case 8: HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-							break;
-			case 11: HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-							break;
-			}
-		*/
+		HAL_Delay(1000);
+		__HAL_GPIO_EXTI_GENERATE_SWIT(GPIO_PIN_13);
 	}
 }
