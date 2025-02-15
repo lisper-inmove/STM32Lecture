@@ -9,15 +9,9 @@ int main(void) {
 	RccClock_Init();
 	// HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1);
 	LED_Init();
-	SW_Init_EVT();
+	SW_Init_IT(0);
+	SW_Init_EvtOutput();
 	while (1) {
-		for(uint8_t i = 0; i < 10; i++) {
-			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-			HAL_Delay(500);
-		}
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-		HAL_SuspendTick();
-		HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFE);
-		HAL_ResumeTick();
+		
 	}
 }

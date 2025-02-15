@@ -63,6 +63,19 @@ void SW_Init_EVT(void) {
 	HAL_GPIO_Init(GPIOA, &GPIO_InitType);
 }
 
+void SW_Init_EvtOutput(void) {
+	GPIO_InitTypeDef GPIO_InitType;	
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	__HAL_RCC_AFIO_CLK_ENABLE();
+	GPIO_InitType.Pin = GPIO_PIN_0;
+	GPIO_InitType.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitType.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitType);
+	HAL_GPIOEx_ConfigEventout(AFIO_EVENTOUT_PORT_A, AFIO_EVENTOUT_PIN_0);
+	HAL_GPIOEx_EnableEventout();
+}
+
+
 // 返回值  0: 无按钮触发
 //         8: SW8触发
 //  mode 0: 按下执行, 1: 抬起执行
@@ -135,6 +148,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_PIN) {
 								return;
 							}
 					}
+					__SEV();
 					HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 				} else {
 					for (i = 0; i < PRESS_DOWN_LOOP_NUMBER; i++) {
