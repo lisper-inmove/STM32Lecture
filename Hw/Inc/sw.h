@@ -6,6 +6,7 @@
 
 void SW_Init(void);
 void SW_Init_IT(uint8_t mode);
+void SW_Init_EVT(void);
 uint8_t SW_Scan(uint8_t mode);
 
 #endif

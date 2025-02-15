@@ -54,6 +54,15 @@ void SW_Init_IT(uint8_t mode) {
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 }
 
+void SW_Init_EVT(void) {
+	GPIO_InitTypeDef GPIO_InitType;
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+	GPIO_InitType.Pin = GPIO_PIN_0;
+	GPIO_InitType.Mode = GPIO_MODE_EVT_RISING;
+	GPIO_InitType.Pull = GPIO_PULLDOWN;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitType);
+}
+
 // 返回值  0: 无按钮触发
 //         8: SW8触发
 //  mode 0: 按下执行, 1: 抬起执行

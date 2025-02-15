@@ -10,6 +10,7 @@
 ".\objects\stm32f1xx_hal_rcc.o"
 ".\objects\stm32f1xx_hal_rcc_ex.o"
 ".\objects\stm32f1xx_hal_cortex.o"
+".\objects\stm32f1xx_hal_pwr.o"
 ".\objects\system_stm32f1xx.o"
 ".\objects\startup_stm32f103xb.o"
 --strict --scatter ".\Objects\project.sct"
