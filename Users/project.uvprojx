@@ -411,6 +411,11 @@
               <FileType>1</FileType>
               <FilePath>..\Hw\Src\sw.c</FilePath>
             </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hw\Src\uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -450,6 +455,16 @@
               <FileName>stm32f1xx_hal_pwr.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Lib\Src\stm32f1xx_hal_pwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f1xx_hal_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Lib\Src\stm32f1xx_hal_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f1xx_hal_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Lib\Src\stm32f1xx_hal_dma.c</FilePath>
             </File>
           </Files>
         </Group>
