@@ -22,6 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_it.h"
+#include "uart.h"
    
 /** @addtogroup STM32F1xx_HAL_Examples
   * @{
@@ -46,8 +47,13 @@
 void EXTI15_10_IRQHandler(void) {
 	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
 }
+
 void EXTI0_IRQHandler(void) {
 	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+}
+
+void USART1_IRQHandler(void) {
+	HAL_UART_IRQHandler(&uart1); 
 }
 
 

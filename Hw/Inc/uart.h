@@ -8,4 +8,7 @@ extern UART_HandleTypeDef uart1;
 extern UART_HandleTypeDef uart2;
 extern UART_HandleTypeDef uart3;
 
+extern uint8_t rxbuffer[64], txbuffer[64];
+extern uint8_t rxstate;
+
 #endif

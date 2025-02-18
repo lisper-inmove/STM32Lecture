@@ -1,9 +1,13 @@
+#include "string.h"
 #include "stm32f1xx_hal.h"
 #include "uart.h"
 
 UART_HandleTypeDef uart1;
 UART_HandleTypeDef uart2;
 UART_HandleTypeDef uart3;
+
+uint8_t rxbuffer[64], txbuffer[64];
+uint8_t rxstate;
 
 void U1_Init(uint32_t baudrate) {
 	uart1.Instance = USART1;
@@ -14,6 +18,8 @@ void U1_Init(uint32_t baudrate) {
 	uart1.Init.Mode = UART_MODE_TX_RX;
 	uart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	HAL_UART_Init(&uart1);
+	
+	HAL_UART_Receive_IT(&uart1, rxbuffer, 20);
 }
 
 void U2_Init(uint32_t baudrate) {
@@ -43,22 +49,21 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart) {
 	GPIO_InitTypeDef GPIO_InitType;
 	
 	if (huart->Instance == USART1) {
-		__HAL_RCC_AFIO_CLK_ENABLE();
-		__HAL_RCC_GPIOB_CLK_ENABLE();
+		__HAL_RCC_GPIOA_CLK_ENABLE();
 		__HAL_RCC_USART1_CLK_ENABLE();
-		// 将RX, TX重映射到B6和B7
-		__HAL_AFIO_REMAP_USART1_ENABLE();
-		
-		// 连线时 B6 ~ RX, B7 ~ TX
-		GPIO_InitType.Pin = GPIO_PIN_6;
+
+		GPIO_InitType.Pin = GPIO_PIN_9;
 		GPIO_InitType.Mode = GPIO_MODE_AF_PP;
 		GPIO_InitType.Speed = GPIO_SPEED_FREQ_MEDIUM;
-		HAL_GPIO_Init(GPIOB, &GPIO_InitType);
+		HAL_GPIO_Init(GPIOA, &GPIO_InitType);
 		
-		GPIO_InitType.Pin = GPIO_PIN_7;
+		GPIO_InitType.Pin = GPIO_PIN_10;
 		GPIO_InitType.Mode = GPIO_MODE_AF_INPUT;
 		GPIO_InitType.Pull = GPIO_NOPULL;
-		HAL_GPIO_Init(GPIOB, &GPIO_InitType);
+		HAL_GPIO_Init(GPIOA, &GPIO_InitType);
+		
+		HAL_NVIC_SetPriority(USART1_IRQn, 3, 0);
+		HAL_NVIC_EnableIRQ(USART1_IRQn);
 	} else if (huart->Instance == USART2) {
 		__HAL_RCC_GPIOA_CLK_ENABLE();
 		__HAL_RCC_USART2_CLK_ENABLE();
@@ -85,5 +90,13 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart) {
 		GPIO_InitType.Mode = GPIO_MODE_AF_INPUT;
 		GPIO_InitType.Pull = GPIO_NOPULL;
 		HAL_GPIO_Init(GPIOB,&GPIO_InitType);
+	}
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+	if (huart->Instance == USART1) {
+		memcpy(txbuffer, rxbuffer, 20);
+		rxstate = 1;
+		HAL_UART_Receive_IT(&uart1, rxbuffer, 20);
 	}
 }

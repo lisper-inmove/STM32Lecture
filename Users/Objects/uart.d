@@ -1,4 +1,5 @@
 .\objects\uart.o: ..\Hw\Src\uart.c
+.\objects\uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\uart.o: ..\Lib\Inc\stm32f1xx_hal.h
 .\objects\uart.o: ..\Lib\Inc\stm32f1xx_hal_conf.h
 .\objects\uart.o: ..\Lib\Inc\stm32f1xx_hal_rcc.h
