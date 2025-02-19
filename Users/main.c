@@ -11,9 +11,9 @@ int main(void) {
 	RccClock_Init();
 	U1_Init(921600);
 	while (1) {
-		if (rxstate == 1) {
+		if(rxstate == 1){
 			rxstate = 0;
-			HAL_UART_Transmit_IT(&uart1, txbuffer, 20);
-		}
+			HAL_UART_Transmit_IT(&uart1,txbuff,20);
+		}		
 	}
 }

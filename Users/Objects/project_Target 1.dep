@@ -1,5 +1,5 @@
 Dependencies for Project 'project', Target 'Target 1': (DO NOT MODIFY !)
-F (.\main.c)(0x67B36328)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x67B5CD0F)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (..\Lib\Inc\stm32f1xx_hal.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_conf.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_rcc.h)(0x67A8C8F9)
@@ -54,8 +54,8 @@ I (..\Lib\Inc\stm32f1xx_hal_pcd_ex.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_hcd.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_mmc.h)(0x67A8C8F9)
 I (..\Hw\Inc\rcc.h)(0x67A8D40C)
-I (..\Hw\Inc\uart.h)(0x67B3635D)
-F (..\Hw\Src\stm32f1xx_it.c)(0x67B3634D)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\stm32f1xx_it.o --omf_browse .\objects\stm32f1xx_it.crf --depend .\objects\stm32f1xx_it.d)
+I (..\Hw\Inc\uart.h)(0x67B5CD18)
+F (..\Hw\Src\stm32f1xx_it.c)(0x67B5D19C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\stm32f1xx_it.o --omf_browse .\objects\stm32f1xx_it.crf --depend .\objects\stm32f1xx_it.d)
 I (..\Lib\Inc\stm32f1xx_hal.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_conf.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_rcc.h)(0x67A8C8F9)
@@ -110,7 +110,7 @@ I (..\Lib\Inc\stm32f1xx_hal_pcd_ex.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_hcd.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_mmc.h)(0x67A8C8F9)
 I (..\Hw\Inc\stm32f1xx_it.h)(0x67A8C8F9)
-I (..\Hw\Inc\uart.h)(0x67B3635D)
+I (..\Hw\Inc\uart.h)(0x67B5CD18)
 F (..\Hw\Src\rcc.c)(0x67AC9A9A)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\rcc.o --omf_browse .\objects\rcc.crf --depend .\objects\rcc.d)
 I (..\Lib\Inc\stm32f1xx_hal.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_conf.h)(0x67A8C8F9)
@@ -276,7 +276,7 @@ I (..\Lib\Inc\stm32f1xx_hal_pcd_ex.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_hcd.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_mmc.h)(0x67A8C8F9)
 I (..\Hw\Inc\sw.h)(0x67B0404E)
-F (..\Hw\Src\uart.c)(0x67B3636E)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
+F (..\Hw\Src\uart.c)(0x67B5D237)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (..\Lib\Inc\stm32f1xx_hal.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_conf.h)(0x67A8C8F9)
@@ -331,7 +331,9 @@ I (..\Lib\Inc\stm32f1xx_ll_usb.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_pcd_ex.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_hcd.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_mmc.h)(0x67A8C8F9)
-I (..\Hw\Inc\uart.h)(0x67B3635D)
+I (..\Hw\Inc\uart.h)(0x67B5CD18)
+F (..\Hw\Src\util.c)(0x67B5C9DD)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\util.o --omf_browse .\objects\util.crf --depend .\objects\util.d)
+I (..\Hw\Inc\util.h)(0x67B5C9E5)
 F (..\Lib\Src\stm32f1xx_hal.c)(0x67A8C8F9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS\Include -I ..\Lib\Inc -I ..\Hw\Inc-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DSTM32F103xB-o .\objects\stm32f1xx_hal.o --omf_browse .\objects\stm32f1xx_hal.crf --depend .\objects\stm32f1xx_hal.d)
 I (..\Lib\Inc\stm32f1xx_hal.h)(0x67A8C8F9)
 I (..\Lib\Inc\stm32f1xx_hal_conf.h)(0x67A8C8F9)

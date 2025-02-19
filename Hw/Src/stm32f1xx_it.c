@@ -52,8 +52,17 @@ void EXTI0_IRQHandler(void) {
 	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 }
 
+// USART1_IRQn中断发生时，此函数被调用
+// 这个入口函数在 startup_stm32f103xb.s文件中定义
 void USART1_IRQHandler(void) {
+	// 该函数中调用 UART_Receive_IT
+	// UART_Receive_IT会调用 HAL_UART_RxCpltCallback，HAL库官方只实现 weak 形式
 	HAL_UART_IRQHandler(&uart1); 
+	
+	if(__HAL_UART_GET_FLAG(&uart1, UART_FLAG_IDLE)){
+		__HAL_UART_CLEAR_IDLEFLAG(&uart1);
+		HAL_UART_AbortReceive_IT(&uart1);
+	}
 }
 
 
