@@ -1,1 +1,13 @@
 *.txt
+GPATH
+GRTAGS
+GTAGS
+*.o
+*.crf
+*.d
+*.hex
+*.htm
+*.lnp
+*.dep
+*.map
+*.TMP

@@ -1,8 +1,0 @@
-#ifndef __UTIL_H
-#define __UTIL_H
-
-#include "stdin.h"
-#include "stdarg.h"
-#include "stdio.h"
-
-#endif
