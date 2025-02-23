@@ -26,7 +26,11 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
 	// 当设置为 TIM_AUTORELOAD_PRELOAD_DISABLE时，立即更新，不使用缓冲
 	// ENABLE时则会，先计数到100，然后再更新(使用缓冲)
 	timer1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	// HAL_TIM_BASE_Init 中调用 TIM_Base_SetConfig 执行 TIMx->EGR = TIM_EGR_UG;
+	// 在 TIM_AUTORELOAD_PRELOAD_DISABLE 模式下，HAL_TIM_Base_Init函数结束就已经开始计时了，就算Start函数还没有被调用
+	// 可以在 Init函数之后 __HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE); 来清除这个标志位
 	HAL_TIM_Base_Init(&timer1);
+	__HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE);
 	HAL_TIM_Base_Start(&timer1);
 }
 
