@@ -1,7 +1,9 @@
 #include "stm32f1xx_hal.h"
 #include "timer.h"
+#include "util.h"
 
 TIM_HandleTypeDef timer1;
+uint32_t counter = 0;
 
 void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
 	/*
@@ -31,17 +33,32 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
 	// 可以在 Init函数之后 __HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE); 来清除这个标志位
 	HAL_TIM_Base_Init(&timer1);
 	__HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE);
-	HAL_TIM_Base_Start(&timer1);
+	HAL_TIM_Base_Start_IT(&timer1);
 }
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim) {
 	if (htim->Instance == TIM1) {
 		__HAL_RCC_TIM1_CLK_ENABLE();
+		// 定时器1的更新中断
+		HAL_NVIC_SetPriority(TIM1_UP_IRQn, 3, 0);
+		HAL_NVIC_EnableIRQ(TIM1_UP_IRQn);
 	}
 }
 
 void HAL_TIM_BaseMspDeInit(TIM_HandleTypeDef *htim) {
 	if (htim->Instance == TIM1) {
 		__HAL_RCC_TIM1_CLK_DISABLE();
+		HAL_NVIC_DisableIRQ(TIM1_UP_IRQn);
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+	if (htim->Instance == TIM1) {
+			u1_printf("Timer1 alarmed... %d\n", counter++);
+			if (counter >= 10) {
+				HAL_TIM_Base_Stop(&timer1);
+				HAL_TIM_Base_DeInit(&timer1);
+				u1_printf("Timer1 stopped...");
+			}
 	}
 }

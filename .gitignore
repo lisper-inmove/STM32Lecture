@@ -12,4 +12,5 @@ GTAGS
 *.map
 *.TMP
 *.axf
-Users/Objects/project_Target 1.dep
+Users/Objects/project_Target 1.dep*.hex
+*.d

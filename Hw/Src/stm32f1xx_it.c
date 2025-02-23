@@ -23,6 +23,7 @@
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_it.h"
 #include "uart.h"
+#include "timer.h"
    
 /** @addtogroup STM32F1xx_HAL_Examples
   * @{
@@ -67,13 +68,16 @@ void USART1_IRQHandler(void) {
 
 void DMA1_Channel4_IRQHandler(void)
 {
-	uint8_t a = 10;
 	HAL_DMA_IRQHandler(&dmatx);
 }
 void DMA1_Channel5_IRQHandler(void)
 {
-	uint8_t a = 10;
 	HAL_DMA_IRQHandler(&dmarx);
+}
+
+void TIM1_UP_IRQHandler(void)
+{
+	HAL_TIM_IRQHandler(&timer1);
 }
 
 /**

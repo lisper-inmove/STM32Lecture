@@ -11,16 +11,7 @@ int main(void) {
   U1_Init(921600);
   u1_printf("Program start: %d\n", 10);
 	Timer1_Init(3999, 35999, 0);
-	uint8_t counter = 0;
   while (1) {
-    if (__HAL_TIM_GET_FLAG(&timer1, TIM_FLAG_UPDATE)) {
-			__HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE);
-			u1_printf("Timer1 alarmed... %d\n", counter++);
-			if (counter >= 3) {
-				HAL_TIM_Base_Stop(&timer1);
-				HAL_TIM_Base_DeInit(&timer1);
-				u1_printf("Timer1 stopped...");
-			}
-		}
+    
   }
 }
