@@ -18,6 +18,8 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
 	timer1.Init.CounterMode = TIM_COUNTERMODE_UP;
 	// 装载值 ，决定定时次数，实际次数为 arr + 1
 	timer1.Init.Period = arr;
+	// 时钟分频因子
+	timer1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	// 高级定时器才有，控制重复周期
 	timer1.Init.RepetitionCounter = rep;
 	// TIMx_ARR寄存器有没有缓冲
