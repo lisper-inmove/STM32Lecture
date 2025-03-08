@@ -10,8 +10,8 @@ int main(void) {
   RccClock_Init();
   U1_Init(921600);
   u1_printf("Program start: %d\n", 10);
-	Timer1_Init(3999, 35999, 0);
+  Timer1_Init(1999, 35999, 0);
   while (1) {
-    
+
   }
 }

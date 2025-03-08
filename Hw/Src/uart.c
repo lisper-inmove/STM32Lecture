@@ -16,14 +16,14 @@ void U1_Init(uint32_t baudrate) {
 	uart1.Init.WordLength = UART_WORDLENGTH_8B;
 	uart1.Init.StopBits = UART_STOPBITS_1;
 	uart1.Init.Parity = UART_PARITY_NONE;
-	uart1.Init.Mode = UART_MODE_TX_RX;
+	uart1.Init.Mode = UART_MODE_TX;
 	uart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	// 先对uart1作一些初始化操作，然后调用 HAL_UART_MspInit函数
 	// HAL 库官方 实现 HAL_UART_MspInit的weak形式，我们自己实现该函数实际形式
 	// 在 HALT_UART_MspInit 函数中，我们可以实现该中断的关联的引脚，中断使能等
 	HAL_UART_Init(&uart1);
-	U1_Init_DMA1();
-	U1_Init_IDLE();
+	// U1_Init_DMA1();
+	// U1_Init_IDLE();
 }
 
 void U1_Init_IDLE(void) {
@@ -107,4 +107,18 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart) {
 	if (huart->Instance == USART1) {
 		rxstate = 1;
 	}
+}
+
+void u1_printf(char *fmt, ...) {
+	uint8_t tempbuff[256];
+	uint16_t i;
+	va_list ap;
+	va_start(ap, fmt);
+	vsprintf((char *)tempbuff, fmt, ap);
+	va_end(ap);
+	for (i = 0; i < strlen((char *)tempbuff); i++) {
+		while(!__HAL_UART_GET_FLAG(&uart1, UART_FLAG_TXE));
+		uart1.Instance->DR = tempbuff[i];
+	}
+	while(!__HAL_UART_GET_FLAG(&uart1, UART_FLAG_TC));
 }

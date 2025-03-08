@@ -160,25 +160,25 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>1401</LineNumber>
+          <LineNumber>864</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134223338</Address>
+          <Address>134224726</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Lib\Src\stm32f1xx_hal_uart.c</Filename>
+          <Filename>..\Lib\Src\stm32f1xx_hal_dma.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\project\../Lib/Src/stm32f1xx_hal_uart.c\1401</Expression>
+          <Expression>\\project\../Lib/Src/stm32f1xx_hal_dma.c\864</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
           <LineNumber>1979</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134222584</Address>
+          <Address>134230072</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -194,12 +194,12 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>uart1</ItemText>
+          <ItemText>timer1_dmabuff</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>rxbuff</ItemText>
+          <ItemText>timer1</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

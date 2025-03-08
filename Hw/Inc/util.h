@@ -8,6 +8,6 @@
 
 #include "stm32f1xx_hal.h"
 
-void u1_printf(char *fmt, ...);
+//void u1_printf(char *fmt, ...);
 
 #endif
