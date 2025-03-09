@@ -5,7 +5,6 @@
 ".\objects\led.o"
 ".\objects\sw.o"
 ".\objects\uart.o"
-".\objects\util.o"
 ".\objects\stm32f1xx_hal.o"
 ".\objects\stm32f1xx_hal_gpio.o"
 ".\objects\stm32f1xx_hal_gpio_ex.o"

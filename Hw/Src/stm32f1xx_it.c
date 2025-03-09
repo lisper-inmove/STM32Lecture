@@ -44,13 +44,6 @@
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
 
-void EXTI15_10_IRQHandler(void) {
-	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
-}
-
-void EXTI0_IRQHandler(void) {
-	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-}
 
 // USART1_IRQn中断发生时，此函数被调用
 // 这个入口函数在 startup_stm32f103xb.s文件中定义
