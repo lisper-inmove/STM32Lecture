@@ -1,0 +1,19 @@
+*.txt
+GPATH
+GRTAGS
+GTAGS
+*.o
+*.crf
+*.d
+*.hex
+*.htm
+*.lnp
+*.dep
+*.map
+*.TMP
+*.axf
+Users/Objects/project_Target 1.dep
+*.hex
+*.Administrator*.bak
+**.d*.d
+*.Administrator
