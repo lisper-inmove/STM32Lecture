@@ -54,3 +54,6 @@
 .\objects\uart.o: ..\Lib\Inc\stm32f1xx_hal_hcd.h
 .\objects\uart.o: ..\Lib\Inc\stm32f1xx_hal_mmc.h
 .\objects\uart.o: ..\Hw\Inc\uart.h
+.\objects\uart.o: ..\Hw\Inc\util.h
+.\objects\uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

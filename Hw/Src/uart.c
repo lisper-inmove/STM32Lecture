@@ -1,6 +1,7 @@
 #include "string.h"
 #include "stm32f1xx_hal.h"
 #include "uart.h"
+#include "util.h"
 
 UART_HandleTypeDef uart1;
 
@@ -18,26 +19,14 @@ void U1_Init(uint32_t baudrate) {
 	uart1.Init.Parity = UART_PARITY_NONE;
 	uart1.Init.Mode = UART_MODE_TX_RX;
 	uart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	// 先对uart1作一些初始化操作，然后调用 HAL_UART_MspInit函数
-	// HAL 库官方 实现 HAL_UART_MspInit的weak形式，我们自己实现该函数实际形式
-	// 在 HALT_UART_MspInit 函数中，我们可以实现该中断的关联的引脚，中断使能等
 	HAL_UART_Init(&uart1);
 	U1_Init_DMA1();
-	U1_Init_IDLE();
-}
-
-void U1_Init_IDLE(void) {
-	// 使能 UART_IT_IDLE中断
-	__HAL_UART_ENABLE_IT(&uart1, UART_IT_IDLE);
 }
 
 void U1_Init_DMA1(void) {
-	// DMA1时钟使能
 	__HAL_RCC_DMA1_CLK_ENABLE();
 	U1_Init_DMA_TX();
 	U1_Init_DMA_RX();
-	// rxbuff，最终会挂在, usart的 pRxBufferPtr上
-	// 20则挂在 RxXferSize 上
 	HAL_UART_Receive_DMA(&uart1, rxbuff, 20);
 }
 
@@ -77,7 +66,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart) {
 	
 	if (huart->Instance == USART1) {
 		__HAL_RCC_GPIOA_CLK_ENABLE();
-		// USART1_CLK 时钟使能
 		__HAL_RCC_USART1_CLK_ENABLE();
 
 		GPIO_InitType.Pin = GPIO_PIN_9;
@@ -90,21 +78,30 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart) {
 		GPIO_InitType.Pull = GPIO_NOPULL;
 		HAL_GPIO_Init(GPIOA, &GPIO_InitType);
 		
-		// 设置 USART1_IRQn 的优先级
 		HAL_NVIC_SetPriority(USART1_IRQn, 3, 0);
-		// 使能 USART1_IRQn
 		HAL_NVIC_EnableIRQ(USART1_IRQn);
 	}
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 	if(huart->Instance == USART1){
-		HAL_UART_Receive_DMA(&uart1, rxbuff, 20);
+		u1_printf("HAL_UART_TxCpltCallback\n");
+		// HAL_UART_Receive_DMA(&uart1, rxbuff, 20);
 	}
 }
 
-void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart) {
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//	if(huart->Instance == USART1){
+//		// u1_printf("HAL_UART_RxCpltCallback\n");
+//		HAL_UART_Transmit_DMA(&uart1, rxbuff, strlen((char *)rxbuff));
+//	}
+//}
+
+void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart) {
 	if (huart->Instance == USART1) {
-		rxstate = 1;
-	}
+		// u1_printf("HAL_UART_RxHalfCpltCallback: %s\n", rxbuff);
+		if (huart->gState == HAL_UART_STATE_READY) {
+			HAL_UART_Transmit_DMA(&uart1, rxbuff, strlen((char *)rxbuff) / 2);
+		}
+  }
 }
