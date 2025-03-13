@@ -54,7 +54,7 @@ void HAL_TIM_BaseMspDeInit(TIM_HandleTypeDef *htim) {
 void HAL_TIM_PeriodElapsedHalfCpltCallback(TIM_HandleTypeDef *htim) {
 	// 半完成中断。timer1_dmabuff 有4个值，第二个完成时，此回调函数被触发
 	if (htim->Instance == TIM1) {
-		u1_printf("Hal cplt... %d\n", counter++);
+		u_printf("Hal cplt... %d\n", counter++);
 	}
 }
 
@@ -62,12 +62,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	// DMA完成的回调
 	// 中断完成的回调是同一个函数
   if (htim->Instance == TIM1) {
-		u1_printf("Value of arr, %d\n", htim->Instance->ARR);
+		u_printf("Value of arr, %d\n", htim->Instance->ARR);
 		if (htim->hdma[TIM_DMA_ID_UPDATE]->State == HAL_DMA_STATE_READY) {
-			u1_printf("Timer1 alarmed by dma... %d\n", counter++);
+			u_printf("Timer1 alarmed by dma... %d\n", counter++);
 			HAL_DMA_DeInit(htim->hdma[TIM_DMA_ID_UPDATE]);
 		} else {
-			u1_printf("Timer1 alarmed by it... %d\n", counter++);
+			u_printf("Timer1 alarmed by it... %d\n", counter++);
 		}
   }
 }
