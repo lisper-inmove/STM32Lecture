@@ -16,7 +16,7 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
   timer1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   HAL_TIM_Base_Init(&timer1);
   // __HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE);
-	__HAL_TIM_ENABLE_IT(&timer1, TIM_IT_UPDATE);
+	// __HAL_TIM_ENABLE_IT(&timer1, TIM_IT_UPDATE);
   HAL_TIM_Base_Start_DMA(&timer1, (uint32_t *)timer1_dmabuff, 4);
 }
 
