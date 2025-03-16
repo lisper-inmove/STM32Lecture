@@ -56,4 +56,3 @@
 .\objects\util.o: ..\Lib\Inc\stm32f1xx_hal_pcd_ex.h
 .\objects\util.o: ..\Lib\Inc\stm32f1xx_hal_hcd.h
 .\objects\util.o: ..\Lib\Inc\stm32f1xx_hal_mmc.h
-.\objects\util.o: ..\Hw\Inc\uart.h
