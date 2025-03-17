@@ -17,11 +17,11 @@ int main(void) {
   while (1) {
 		if (__HAL_TIM_GET_FLAG(&timer1, TIM_FLAG_UPDATE)) {
 			__HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE);
-			u2_printf("Timer1 Update.");
+			u2_printf("Timer1 Update.\n");
 		}
 		if (__HAL_TIM_GET_FLAG(&timer1, TIM_FLAG_TRIGGER)) {
 			__HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_TRIGGER);
-			u2_printf("Timer1 Trigger.");
+			u2_printf("Timer1 Trigger.\n");
 		}
 	}
 }
