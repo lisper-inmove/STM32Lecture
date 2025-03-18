@@ -10,5 +10,9 @@ int main(void) {
 	Timer1_Init(4, 0, 0);
 	u2_printf("Program start: %d\n", 10);
 	
+	// 接线:
+	// PA8  SW8
+	// PA9  SW11
+	// PA12 SW12
 	while (1) {}
 }
