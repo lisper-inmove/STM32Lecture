@@ -21,7 +21,7 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
 	timer1_clock.ClockSource = TIM_CLOCKSOURCE_TI1;
 	// timer1_clock.ClockSource = TIM_CLOCKSOURCE_TI2;
 	timer1_clock.ClockPolarity = TIM_CLOCKPOLARITY_RISING;
-	timer1_clock.ClockFilter =  0x03;
+	timer1_clock.ClockFilter = 0x03;
 	HAL_TIM_ConfigClockSource(&timer1, &timer1_clock);
 	
   HAL_TIM_Base_Start(&timer1);
@@ -37,7 +37,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim) {
 		GPIO_InitType.Mode = GPIO_MODE_INPUT;
 		GPIO_InitType.Pull = GPIO_PULLDOWN;
 		
-		// 与 TIM_CLOCKSOURCE_TI2 对应。表示 通道2使用PA9
+		// TIM_CLOCKSOURCE_TI2 PA9
 		// GPIO_InitType.Pin = GPIO_PIN_9;
 		// GPIO_InitType.Mode = GPIO_MODE_INPUT;
 		// GPIO_InitType.Pull = GPIO_PULLUP;
