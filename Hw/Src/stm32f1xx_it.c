@@ -22,6 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_it.h"
+#include "timer.h"
    
 /** @addtogroup STM32F1xx_HAL_Examples
   * @{
@@ -42,6 +43,14 @@
 /******************************************************************************/
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
+
+void TIM1_UP_IRQHandler(void) {
+  HAL_TIM_IRQHandler(&timer1);
+}
+
+void TIM1_TRG_COM_IRQHandler(void) {
+  HAL_TIM_IRQHandler(&timer1);
+}
 
 /**
   * @brief   This function handles NMI exception.
