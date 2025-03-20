@@ -74,10 +74,3 @@ void HAL_TIM_PeriodElapsedHalfCpltCallback(TIM_HandleTypeDef *htim) {
 		u2_printf("TIM1 Half Cplt Callback");
 	}
 }
-
-// 定时器触发中断
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance == TIM1) {
-    u2_printf("Timer1 trigger interupt... %d\n", __HAL_TIM_GET_COUNTER(htim));
-  }
-}
