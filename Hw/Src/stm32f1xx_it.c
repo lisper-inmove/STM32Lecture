@@ -44,12 +44,9 @@
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
 
-void TIM1_UP_IRQHandler(void) {
-  HAL_TIM_IRQHandler(&timer1);
-}
-
-void TIM1_TRG_COM_IRQHandler(void) {
-  HAL_TIM_IRQHandler(&timer1);
+void DMA1_Channel5_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&timer1_dmaup);
 }
 
 /**

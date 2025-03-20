@@ -7,7 +7,7 @@ int main(void) {
 	HAL_Init();
 	RccClock_Init();
 	UART2_Init(921600);
-	Timer1_Init(4, 0, 0);
+	Timer1_Init(1, 0, 0);
 	u2_printf("Program start: %d\n", 10);
 	
 	// 接线:
