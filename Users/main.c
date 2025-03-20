@@ -14,5 +14,8 @@ int main(void) {
 	// PA8  SW8
 	// PA9  SW11
 	// PA12 SW12
-	while (1) {}
+	while (1) {
+		HAL_Delay(1000);
+		u2_printf("Value of arr, %d\n", timer1.Instance->ARR);
+	}
 }

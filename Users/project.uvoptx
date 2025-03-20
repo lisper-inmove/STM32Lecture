@@ -161,7 +161,7 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>uart1</ItemText>
+          <ItemText>htim</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

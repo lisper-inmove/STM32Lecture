@@ -6,7 +6,7 @@
 TIM_HandleTypeDef timer1;
 TIM_ClockConfigTypeDef timer1_clock;
 DMA_HandleTypeDef timer1_dmaup;
-uint16_t timer1_dmabuff[2] = {1, 1};
+uint16_t timer1_dmabuff[2] = {2, 4};
 uint32_t counter = 0;
 
 void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
@@ -59,9 +59,20 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim) {
 // 定时器更新中断
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim->Instance == TIM1) {
-    u2_printf("Timer1 update interupt... %d\n", __HAL_TIM_GET_COUNTER(htim));
-		u2_printf("Value of arr, %d\n", htim->Instance->ARR);
+		if (htim->hdma[TIM_DMA_ID_UPDATE]->State == HAL_DMA_STATE_READY) {
+			u2_printf("Timer1 DMA interupt...");
+			u2_printf("Value of arr, %d\n", htim->Instance->ARR);
+		} else {
+			u2_printf("Timer1 update interupt... %d\n", __HAL_TIM_GET_COUNTER(htim));
+			u2_printf("Value of arr, %d\n", htim->Instance->ARR);
+		}
   }
+}
+
+void HAL_TIM_PeriodElapsedHalfCpltCallback(TIM_HandleTypeDef *htim) {
+	if (htim->Instance == TIM1) {
+		u2_printf("TIM1 Half Cplt Callback");
+	}
 }
 
 // 定时器触发中断
