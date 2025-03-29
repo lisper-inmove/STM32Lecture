@@ -4,10 +4,11 @@
 #include "util.h"
 
 TIM_HandleTypeDef timer1;
-TIM_ClockConfigTypeDef timer1_clock;
-DMA_HandleTypeDef timer1_dmaup;
-uint16_t timer1_dmabuff[2] = {2, 4};
-uint32_t counter = 0;
+TIM_IC_InitTypeDef timer1_ic1;
+TIM_IC_InitTypeDef timer1_ic2;
+TIM_IC_InitTypeDef timer1_ic3;
+TIM_IC_InitTypeDef timer1_ic4;
+
 
 void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
   timer1.Instance = TIM1;
@@ -16,61 +17,80 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
   timer1.Init.Period = arr;
   timer1.Init.RepetitionCounter = rep;
   timer1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-	timer1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  HAL_TIM_Base_Init(&timer1);
+	timer1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV2;
+	HAL_TIM_IC_Init(&timer1);
 	__HAL_TIM_CLEAR_FLAG(&timer1, TIM_FLAG_UPDATE);
+
+	// 输入捕获极性
+	// #define  TIM_ICPOLARITY_RISING             TIM_INPUTCHANNELPOLARITY_RISING
+	// #define  TIM_ICPOLARITY_FALLING            TIM_INPUTCHANNELPOLARITY_FALLING
+	// #define  TIM_ICPOLARITY_BOTHEDGE           TIM_INPUTCHANNELPOLARITY_BOTHEDGE
+	timer1_ic1.ICPolarity = TIM_ICPOLARITY_RISING;
+	// 输入捕获通道选择（直接、间接或第三输入）
+	// #define TIM_ICSELECTION_DIRECTTI           TIM_CCMR1_CC1S_0                 // 直接连接到对应引脚（常用）
+	// #define TIM_ICSELECTION_INDIRECTTI         TIM_CCMR1_CC1S_1                 // 间接连接（用于捕获互补信号）
+	// #define TIM_ICSELECTION_TRC                TIM_CCMR1_CC1S                   // 触发输入（用于同步、从模式）
+	timer1_ic1.ICSelection = TIM_ICSELECTION_DIRECTTI;
+	// 输入捕获预分频器
+	// #define TIM_ICPSC_DIV1                     0x00000000U                          /*!< Capture performed each time an edge is detected on the capture input */
+	// #define TIM_ICPSC_DIV2                     TIM_CCMR1_IC1PSC_0                   /*!< Capture performed once every 2 events                                */
+	// #define TIM_ICPSC_DIV4                     TIM_CCMR1_IC1PSC_1                   /*!< Capture performed once every 4 events                                */
+	// #define TIM_ICPSC_DIV8                     TIM_CCMR1_IC1PSC                     /*!< Capture performed once every 8 events                                */
+	timer1_ic1.ICPrescaler = TIM_ICPSC_DIV1;
+	// 输入滤波器设置 0x0 ~ 0xF
+	timer1_ic1.ICFilter =0x08;
+	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic1, TIM_CHANNEL_1);
 	
-	timer1_clock.ClockSource = TIM_CLOCKSOURCE_TI1;
-	timer1_clock.ClockPolarity = TIM_CLOCKPOLARITY_RISING;
-	timer1_clock.ClockFilter = 0x03;
-	HAL_TIM_ConfigClockSource(&timer1, &timer1_clock);
+	timer1_ic2.ICPolarity = TIM_ICPOLARITY_RISING;
+	timer1_ic2.ICSelection = TIM_ICSELECTION_DIRECTTI;
+	timer1_ic2.ICPrescaler = TIM_ICPSC_DIV1;
+	timer1_ic2.ICFilter =0x08;
+	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic2, TIM_CHANNEL_2);
 	
-  HAL_TIM_Base_Start_DMA(&timer1, (uint32_t *)timer1_dmabuff, 2);
+	timer1_ic3.ICPolarity = TIM_ICPOLARITY_RISING;
+	timer1_ic3.ICSelection = TIM_ICSELECTION_DIRECTTI;
+	timer1_ic3.ICPrescaler = TIM_ICPSC_DIV1;
+	timer1_ic3.ICFilter =0x08;
+	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic3, TIM_CHANNEL_3);
+	
+	timer1_ic4.ICPolarity = TIM_ICPOLARITY_RISING;
+	timer1_ic4.ICSelection = TIM_ICSELECTION_DIRECTTI;
+	timer1_ic4.ICPrescaler = TIM_ICPSC_DIV1;
+	timer1_ic4.ICFilter =0x08;
+	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic4, TIM_CHANNEL_4);
+	
+	HAL_TIM_IC_Start(&timer1,TIM_CHANNEL_1);
+	HAL_TIM_IC_Start(&timer1,TIM_CHANNEL_2);
+	HAL_TIM_IC_Start(&timer1,TIM_CHANNEL_3);
+	HAL_TIM_IC_Start(&timer1,TIM_CHANNEL_4);
 }
 
-void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim) {
+void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
+{
 	GPIO_InitTypeDef GPIO_InitType;
-  if (htim->Instance == TIM1) {
-    __HAL_RCC_TIM1_CLK_ENABLE();
-		__HAL_RCC_GPIOA_CLK_ENABLE();
-		__HAL_RCC_DMA1_CLK_ENABLE();
+	
+	if(htim->Instance == TIM1){
+		__HAL_RCC_TIM1_CLK_ENABLE();
+		__HAL_RCC_GPIOA_CLK_ENABLE();		
 		
 		GPIO_InitType.Pin = GPIO_PIN_8;
 		GPIO_InitType.Mode = GPIO_MODE_INPUT;
 		GPIO_InitType.Pull = GPIO_PULLDOWN;
-		HAL_GPIO_Init(GPIOA, &GPIO_InitType);
-		
-		timer1_dmaup.Instance = DMA1_Channel5;
-    timer1_dmaup.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    timer1_dmaup.Init.PeriphInc = DMA_PINC_DISABLE;
-    timer1_dmaup.Init.MemInc = DMA_MINC_ENABLE;
-    timer1_dmaup.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    timer1_dmaup.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-    timer1_dmaup.Init.Mode = DMA_CIRCULAR;
-    timer1_dmaup.Init.Priority = DMA_PRIORITY_MEDIUM;
-    __HAL_LINKDMA(&timer1, hdma[TIM_DMA_ID_UPDATE], timer1_dmaup);
-    HAL_DMA_Init(&timer1_dmaup);
-		
-    HAL_NVIC_SetPriority(DMA1_Channel5_IRQn, 3, 0);
-    HAL_NVIC_EnableIRQ(DMA1_Channel5_IRQn);
-  }
-}
+		HAL_GPIO_Init(GPIOA,&GPIO_InitType);
 
-// 定时器更新中断
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  if (htim->Instance == TIM1) {
-		if (htim->hdma[TIM_DMA_ID_UPDATE]->State == HAL_DMA_STATE_READY) {
-			u2_printf("Timer1 DMA interupt...");
-			u2_printf("Value of arr, %d\n", htim->Instance->ARR);
-		} else {
-			u2_printf("Timer1 update interupt... %d\n", __HAL_TIM_GET_COUNTER(htim));
-			u2_printf("Value of arr, %d\n", htim->Instance->ARR);
-		}
-  }
-}
+		GPIO_InitType.Pin = GPIO_PIN_9;
+		GPIO_InitType.Mode = GPIO_MODE_INPUT;
+		GPIO_InitType.Pull = GPIO_PULLUP;
+		HAL_GPIO_Init(GPIOA,&GPIO_InitType);	
 
-void HAL_TIM_PeriodElapsedHalfCpltCallback(TIM_HandleTypeDef *htim) {
-	if (htim->Instance == TIM1) {
-		u2_printf("TIM1 Half Cplt Callback");
+		GPIO_InitType.Pin = GPIO_PIN_10;
+		GPIO_InitType.Mode = GPIO_MODE_INPUT;
+		GPIO_InitType.Pull = GPIO_PULLDOWN;
+		HAL_GPIO_Init(GPIOA,&GPIO_InitType);
+
+		GPIO_InitType.Pin = GPIO_PIN_11;
+		GPIO_InitType.Mode = GPIO_MODE_INPUT;
+		GPIO_InitType.Pull = GPIO_PULLUP;
+		HAL_GPIO_Init(GPIOA,&GPIO_InitType);					
 	}
 }

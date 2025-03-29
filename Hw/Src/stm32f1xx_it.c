@@ -44,10 +44,6 @@
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
 
-void DMA1_Channel5_IRQHandler(void)
-{
-  HAL_DMA_IRQHandler(&timer1_dmaup);
-}
 
 /**
   * @brief   This function handles NMI exception.
