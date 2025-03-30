@@ -44,6 +44,14 @@
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
 
+void TIM1_CC_IRQHandler(void)
+{
+	HAL_TIM_IRQHandler(&timer1);
+}
+void TIM1_UP_IRQHandler(void)
+{
+	HAL_TIM_IRQHandler(&timer1);
+}
 
 /**
   * @brief   This function handles NMI exception.
