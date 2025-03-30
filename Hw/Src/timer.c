@@ -43,8 +43,8 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
 	timer1_ic1.ICFilter = 0x08;
 	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic1, TIM_CHANNEL_1);
 	
-	timer1_ic2.ICPolarity = TIM_ICPOLARITY_RISING;
-	timer1_ic2.ICSelection = TIM_ICSELECTION_DIRECTTI;
+	timer1_ic2.ICPolarity = TIM_ICPOLARITY_FALLING;
+	timer1_ic2.ICSelection = TIM_ICSELECTION_INDIRECTTI;
 	timer1_ic2.ICPrescaler = TIM_ICPSC_DIV1;
 	timer1_ic2.ICFilter = 0x08;
 	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic2, TIM_CHANNEL_2);
@@ -55,8 +55,8 @@ void Timer1_Init(uint16_t arr, uint16_t psc, uint8_t rep) {
 	timer1_ic3.ICFilter = 0x08;
 	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic3, TIM_CHANNEL_3);
 	
-	timer1_ic4.ICPolarity = TIM_ICPOLARITY_RISING;
-	timer1_ic4.ICSelection = TIM_ICSELECTION_DIRECTTI;
+	timer1_ic4.ICPolarity = TIM_ICPOLARITY_FALLING;
+	timer1_ic4.ICSelection = TIM_ICSELECTION_INDIRECTTI;
 	timer1_ic4.ICPrescaler = TIM_ICPSC_DIV1;
 	timer1_ic4.ICFilter = 0x08;
 	HAL_TIM_IC_ConfigChannel(&timer1, &timer1_ic4, TIM_CHANNEL_4);
